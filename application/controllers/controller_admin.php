@@ -1,36 +1,13 @@
 <?php
 
 
-class Controller_Admin extends Controller
+class Controller_Admin extends Controller_Main
 {
     function __construct()
     {
-        $this->model = new Model_Main();
-        $this->view = new View();
-        $this->sort = "name";
-        $this->desc = false;
-        $this->data = null;
-        $this->page_count = 0;
+        parent::__construct();
     }
 
-    function set_start_default(){
-        $this->sort = "name";
-        $this->desc = false;
-        $this->data = null;
-    }
-
-    function set_start_data(){
-        if(isset($_COOKIE["ActiveElem"])){
-            $this->sort = $_COOKIE["ActiveElem"];
-        }
-
-        if(isset($_COOKIE["desc"])){
-            $this->desc = intval($_COOKIE["desc"]);
-        }
-
-        $this->data = $this->model->get_data($this->sort, $this->desc);
-        $this->page_count = $this->model->get_page_count();
-    }
 
     function action_index()
     {

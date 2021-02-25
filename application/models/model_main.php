@@ -5,15 +5,15 @@ class Model_Main extends Model
 {
     function __construct($user = "guest", $pass = "1")
     {
-//         $this->user = $user;
-//         $this->pass = $pass;
-//         $this->host = "localhost";
-//         $this->db = "tasks";
-		
-		$this->user = "alexdz";
-        $this->pass = "Ww221923";
-        $this->host = "mysql.zzz.com.ua";
-        $this->db = "alexdz";
+        $this->user = $user;
+        $this->pass = $pass;
+        $this->host = "localhost";
+        $this->db = "tasks";
+
+//		$this->user = "alexdz";
+//      $this->pass = "Ww221923";
+//      $this->host = "mysql.zzz.com.ua";
+//      $this->db = "alexdz";
     }
 
     public function get_data($sort = "name", $desc = false)
@@ -102,7 +102,7 @@ class Model_Main extends Model
     {
         $edit = $this->get_edit_state($id);
 
-        if(("'" . $this->get_task_text($id) . "'") != $text){
+        if (("'" . $this->get_task_text($id) . "'") != $text) {
             $edit = 1;
         }
 
@@ -133,7 +133,8 @@ class Model_Main extends Model
         mysqli_close($link);
     }
 
-    function get_task_text($id){
+    function get_task_text($id)
+    {
         $text = "";
 
         $link = mysqli_connect($this->host, $this->user, $this->pass, $this->db)
@@ -142,7 +143,7 @@ class Model_Main extends Model
         $query = "SELECT text FROM data WHERE id=$id";
 
         $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-        if($result->num_rows > 0) {
+        if ($result->num_rows > 0) {
             $text = mysqli_fetch_row($result)[0];
         }
 
@@ -151,7 +152,8 @@ class Model_Main extends Model
         return $text;
     }
 
-    function get_edit_state($id){
+    function get_edit_state($id)
+    {
         $edit = 0;
 
         $link = mysqli_connect($this->host, $this->user, $this->pass, $this->db)
@@ -160,7 +162,7 @@ class Model_Main extends Model
         $query = "SELECT edit FROM data WHERE id=$id";
 
         $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-        if($result->num_rows > 0) {
+        if ($result->num_rows > 0) {
             $edit = mysqli_fetch_row($result)[0];
         }
 
@@ -168,8 +170,9 @@ class Model_Main extends Model
 
         return $edit;
     }
-    
-    function checkAdminAccess($login, $pass){
+
+    function checkAdminAccess($login, $pass)
+    {
         $access = 0;
 
         $link = mysqli_connect($this->host, $this->user, $this->pass, $this->db)
@@ -178,7 +181,7 @@ class Model_Main extends Model
         $query = "SELECT pass FROM users WHERE name='$login'";
 
         $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-        if($result->num_rows > 0) {
+        if ($result->num_rows > 0) {
             $pass_from_db = mysqli_fetch_row($result)[0];
             if ($pass_from_db == $pass) {
                 $access = 1;
@@ -193,7 +196,8 @@ class Model_Main extends Model
 
     }
 
-    function get_admin_status(){
+    function get_admin_status()
+    {
 
         $status = 0;
 
@@ -203,10 +207,9 @@ class Model_Main extends Model
         $query = "SELECT status FROM users WHERE name='admin'";
 
         $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-        if($result->num_rows > 0) {
+        if ($result->num_rows > 0) {
             $status = mysqli_fetch_row($result)[0];
-        }
-        else{
+        } else {
             throw new Exception('you not have admin record');
         }
 
@@ -215,9 +218,10 @@ class Model_Main extends Model
         return $status;
     }
 
-    function set_admin_status($status = 1){
+    function set_admin_status($status = 1)
+    {
 
-        if(($status != 1) AND ($status != 0)){
+        if (($status != 1) AND ($status != 0)) {
             throw new Exception('Incorrect admin status!');
         }
 
