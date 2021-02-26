@@ -29,7 +29,12 @@ class Controller_Main extends Controller
             $this->desc = intval($_COOKIE["desc"]);
         }
 
-        $this->data = $this->model->get_data($this->sort, $this->desc);
+
+        $start_index = 0;
+        if (array_key_exists("page", $_GET)) {
+            $start_index = ($_GET["page"] - 1) * 3;
+        }
+        $this->data = $this->model->get_data($this->sort, $this->desc, $start_index);
         $this->page_count = $this->model->get_page_count();
     }
 

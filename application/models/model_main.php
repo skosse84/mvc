@@ -16,9 +16,8 @@ class Model_Main extends Model
 //      $this->db = "alexdz";
     }
 
-    public function get_data($sort = "name", $desc = false)
+    public function get_data($sort = "name", $desc = false, $start_index = 0, $limit_length = 3)
     {
-        $page_current = 1;
         $data = [];
         $query = "";
         $query_desc = "";
@@ -28,13 +27,8 @@ class Model_Main extends Model
         if ($desc) {
             $query_desc = "DESC";
         }
-        if (array_key_exists("page", $_GET)) {
-            $page_current = $_GET["page"];
-            $start_index = ($_GET["page"] - 1) * 3;
-            $query = "SELECT * FROM data ORDER BY $sort " . $query_desc . " LIMIT $start_index, 3";
-        } else {
-            $query = "SELECT * FROM data ORDER BY $sort " . $query_desc . " LIMIT 0, 3";
-        }
+
+        $query = "SELECT * FROM data ORDER BY $sort " . $query_desc . " LIMIT $start_index, $limit_length";
 
         $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
         if ($result) {

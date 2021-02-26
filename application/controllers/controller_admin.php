@@ -91,11 +91,11 @@ class Controller_Admin extends Controller_Main
                 $text =  $_POST["user_task"];
             }
             else{
-                throw new Exception('you have empty fields in action_change');
+                throw new Exception('you have empty fields in action_update');
             }
         }
         else{
-            throw new Exception('you did not set task fields in action_change');
+            throw new Exception('you did not set task fields in action_update');
         }
 
         $name = htmlspecialchars($name, ENT_QUOTES);
