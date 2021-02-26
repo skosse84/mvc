@@ -16,11 +16,7 @@
 <?php
 $GLOBALS["action_view"] = '/mvc/main/update';
 include 'general_view.php';
-?>
 
-
-
-<?php
 $col_row = count($data);
 $page_current = $cur_page;
 
@@ -51,8 +47,7 @@ for ($i = 1; $i < $page_count + 1; $i++) {
 
 }
 echo "</div>";
+echo '<script src="../../../mvc/js/main_view.js"></script>';
 ?>
 
-<script src="../../js/main_view.js">
 
-</script>

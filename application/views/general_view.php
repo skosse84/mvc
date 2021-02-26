@@ -1,5 +1,5 @@
 <h1 class="main_header">Task manager</h1>
-<form method="post" action='<?php$GLOBALS["action_view"]?>'>
+<form method="post" action='<?php echo $GLOBALS["action_view"]; ?>'>
     <div class="form-group">
         <label for="user_name">Name:</label>
         <input type="text" class="form-control" id="user_name" name="user_name" required>

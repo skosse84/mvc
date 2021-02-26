@@ -1,3 +1,4 @@
+let delete_buttons = document.querySelectorAll(".delete_button");
 let items = document.querySelectorAll(".dropdown-item");
 let ActiveElem = getCookie("ActiveElem");
 let desc = parseInt(getCookie("desc"));
@@ -9,9 +10,11 @@ if (desc) {
     sortButton.classList.add("text_blue");
 }
 
-id_delete.addEventListener("click", (e) => {
-    e.target.form.delete.value = "1";
-    e.target.form.submit();
+delete_buttons.forEach((val) => {
+    val.addEventListener("click", (e) => {
+        e.target.form.delete.value = "1";
+        e.target.form.submit();
+    })
 });
 
 sortButton.addEventListener("click", (e) => {

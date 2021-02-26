@@ -20,7 +20,7 @@ class Model_Main extends Model
     {
         $data = [];
         $query = "";
-        $query_desc = "";
+        $query_desc = "ASC";
         $link = mysqli_connect($this->host, $this->user, $this->pass, $this->db)
         or die("Error " . mysqli_error($link));
 
@@ -31,6 +31,7 @@ class Model_Main extends Model
         $query = "SELECT * FROM data ORDER BY $sort " . $query_desc . " LIMIT $start_index, $limit_length";
 
         $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
+
         if ($result) {
             $rows = mysqli_num_rows($result); // количество полученных строк
 
@@ -83,13 +84,19 @@ class Model_Main extends Model
                      $edit);
         ";
 
+        //$query = "INSERT INTO `data` (`name`,`email`,`text`,`status`,`edit`)  VALUES (?, ?, ?, ?, ?);";
+
         $link = mysqli_connect($this->host, $this->user, $this->pass, $this->db)
         or die("Error " . mysqli_error($link));
 
         mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
+
+//        $stmt = mysqli_prepare($link, $query);
+//        mysqli_stmt_bind_param($stmt, 'sssii', $name, $email, $text, $status, $edit);
+//        mysqli_stmt_execute($stmt);
+//        mysqli_stmt_close($stmt);
+
         mysqli_close($link);
-
-
     }
 
     function change($id, $name, $email, $text, $status = 0)

@@ -10,12 +10,7 @@
 <?php
 $GLOBALS["action_view"] = '/mvc/admin/update';
 include 'general_view.php';
-?>
 
-
-
-
-<?php
 $col_row = count($data);
 $page_current = $cur_page;
 
@@ -59,7 +54,7 @@ for ($i = 0; $i < $col_row; $i++) {
             <input type=\"submit\" class=\"form-control\" id=\"id_save\" value=\"Save changes\"/>
           </div>
           <div class=\"form-group col-md-6\">  
-            <input type=\"button\" class=\"form-control\" id=\"id_delete\" value=\"Delete task\"/>
+            <input type=\"button\" class=\"form-control delete_button\" id=\"id_delete\" value=\"Delete task\"/>
           </div>
       </div>
     ";
@@ -83,11 +78,9 @@ for ($i = 1; $i < $page_count + 1; $i++) {
 
 }
 echo "</div>";
-
+echo '<script  src="../../../mvc/js/admin_view.js"></script>';
 
 ?>
 
-<script  src="../../js/admin_view.js">
 
-</script>
 
