@@ -11,6 +11,7 @@ class Controller_Main extends Controller
         $this->desc = false;
         $this->data = null;
         $this->page_count = 0;
+        $this->cur_page = 1;
     }
 
     function set_start_default(){
@@ -41,8 +42,12 @@ class Controller_Main extends Controller
 
         $this->set_start_default();
         $this->set_start_data();
+
+        if (array_key_exists("page", $_GET)) {
+            $this->cur_page = $_GET["page"];
+        }
         $this->view->generate('main_view.php', 'template_view.php',
-                                $this->data, $this->page_count, $this);
+                                $this->data, $this->page_count, $this->cur_page, $this);
     }
 
     function action_udate_success(){
@@ -50,8 +55,11 @@ class Controller_Main extends Controller
         $this->set_start_default();
         $this->set_start_data();
 
+        if (array_key_exists("page", $_GET)) {
+            $this->cur_page = $_GET["page"];
+        }
         $this->view->generate('data_update_view.php', 'template_view.php',
-            $this->data, $this->page_count, $this);
+            $this->data, $this->page_count, $this->cur_page, $this);
     }
 
     function action_update(){

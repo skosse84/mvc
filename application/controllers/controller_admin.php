@@ -14,8 +14,11 @@ class Controller_Admin extends Controller_Main
         if($this->model->get_admin_status()){
             $this->set_start_default();
             $this->set_start_data();
+            if (array_key_exists("page", $_GET)) {
+                $this->cur_page = $_GET["page"];
+            }
             $this->view->generate('admin_view.php', 'template_view.php',
-                $this->data, $this->page_count, $this);
+                $this->data, $this->page_count, $this->cur_page, $this);
         }
         elseif (isset($_POST["login"]) AND isset($_POST["pass"])) {
             if (!empty($_POST["login"]) AND !empty($_POST["pass"])) {
@@ -23,8 +26,11 @@ class Controller_Admin extends Controller_Main
                     $this->model->set_admin_status(1);
                     $this->set_start_default();
                     $this->set_start_data();
+                    if (array_key_exists("page", $_GET)) {
+                        $this->cur_page = $_GET["page"];
+                    }
                     $this->view->generate('admin_view.php', 'template_view.php',
-                        $this->data, $this->page_count, $this);
+                        $this->data, $this->page_count, $this->cur_page, $this);
                 }
                 else{
                     header('Location: /mvc/admin/access_denied');
@@ -49,8 +55,12 @@ class Controller_Admin extends Controller_Main
         $this->set_start_default();
         $this->set_start_data();
 
+        if (array_key_exists("page", $_GET)) {
+            $this->cur_page = $_GET["page"];
+        }
+
         $this->view->generate('data_update_admin_view.php', 'template_view.php',
-            $this->data, $this->page_count, $this);
+            $this->data, $this->page_count, $this->cur_page, $this);
     }
 
     function action_access_denied(){
@@ -58,8 +68,12 @@ class Controller_Admin extends Controller_Main
         $this->set_start_default();
         $this->set_start_data();
 
+        if (array_key_exists("page", $_GET)) {
+            $this->cur_page = $_GET["page"];
+        }
+
         $this->view->generate('access_denied_view.php', 'template_view.php',
-            $this->data, $this->page_count, $this);
+            $this->data, $this->page_count, $this->cur_page, $this);
     }
 
     function action_update(){

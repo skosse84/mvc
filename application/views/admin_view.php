@@ -17,12 +17,7 @@ include 'general_view.php';
 
 <?php
 $col_row = count($data);
-$page_current = 1;
-
-
-if (array_key_exists("page", $_GET)) {
-    $page_current = $_GET["page"];
-}
+$page_current = $cur_page;
 
 for ($i = 0; $i < $col_row; $i++) {
     $checked = "";
