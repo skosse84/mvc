@@ -76,7 +76,7 @@ class Model_Main extends Model
 
         $stmt = mysqli_prepare($link, $query);
         mysqli_stmt_bind_param($stmt, 'sssii', $name, $email, $text, $status, $edit);
-        mysqli_stmt_execute($stmt);
+        mysqli_stmt_execute($stmt) or die("Ошибка " . mysqli_error($link));
         mysqli_stmt_close($stmt);
 
         mysqli_close($link);
@@ -86,34 +86,36 @@ class Model_Main extends Model
     {
         $edit = $this->get_edit_state($id);
 
-        if (("'" . $this->get_task_text($id) . "'") != $text) {
+        if ( $this->get_task_text($id) != $text) {
             $edit = 1;
         }
 
-        $query = "UPDATE `data`
-                  SET
-                  `name`={$name},
-                  `email`={$email},
-                  `text`={$text},
-                  `status`={$status},
-                  `edit`={$edit}
-                  WHERE `id`={$id};";
 
         $link = mysqli_connect($this->host, $this->user, $this->pass, $this->db)
         or die("Error " . mysqli_error($link));
 
-        mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
+        $query = "UPDATE `data` SET `name`=?,`email`=?,`text`=?,`status`=?,`edit`=? WHERE id = ?";
+
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, 'sssiii', $name, $email, $text, $status, $edit, $id);
+        mysqli_stmt_execute($stmt) or die("Ошибка " . mysqli_error($link));
+        mysqli_stmt_close($stmt);
+
         mysqli_close($link);
     }
 
     function delete($id)
     {
-        $query = "DELETE FROM `data` WHERE id={$id};";
-
         $link = mysqli_connect($this->host, $this->user, $this->pass, $this->db)
         or die("Error " . mysqli_error($link));
 
-        mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
+        $query = "DELETE FROM `data` WHERE id=?";
+
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, 'i', $id);
+        mysqli_stmt_execute($stmt) or die("Ошибка " . mysqli_error($link));
+        mysqli_stmt_close($stmt);
+
         mysqli_close($link);
     }
 

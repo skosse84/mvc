@@ -147,10 +147,6 @@ class Controller_Admin extends Controller_Main
             $email = htmlspecialchars($email, ENT_QUOTES);
             $text = htmlspecialchars($text, ENT_QUOTES);
 
-            $name = "'" . $name . "'";
-            $email = "'" . $email . "'";
-            $text = "'" . $text . "'";
-
             if(intval($delete)){
                 $this->model->delete($id);
             }
