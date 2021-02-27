@@ -93,10 +93,6 @@ class Controller_Main extends Controller
         $email = htmlspecialchars($email, ENT_QUOTES);
         $text = htmlspecialchars($text, ENT_QUOTES);
 
-        $name = "'" . $name . "'";
-        $email = "'" . $email . "'";
-        $text = "'" . $text . "'";
-
         $this->model->update($name, $email, $text, $status, $edit);
 
         header('Location: /mvc/main/udate_success');

@@ -69,32 +69,15 @@ class Model_Main extends Model
 
     function update($name, $email, $text, $status = 0, $edit = 0)
     {
-
-        $query = "INSERT INTO `data`
-                    (`name`,
-                     `email`,
-                     `text`,
-                     `status`,
-                     `edit`)
-                    VALUES
-                    ($name,
-                     $email,
-                     $text,
-                     $status,
-                     $edit);
-        ";
-
-        //$query = "INSERT INTO `data` (`name`,`email`,`text`,`status`,`edit`)  VALUES (?, ?, ?, ?, ?);";
-
         $link = mysqli_connect($this->host, $this->user, $this->pass, $this->db)
         or die("Error " . mysqli_error($link));
 
-        mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
+        $query = "INSERT INTO `data` (`name`,`email`,`text`,`status`,`edit`)  VALUES (?, ?, ?, ?, ?);";
 
-//        $stmt = mysqli_prepare($link, $query);
-//        mysqli_stmt_bind_param($stmt, 'sssii', $name, $email, $text, $status, $edit);
-//        mysqli_stmt_execute($stmt);
-//        mysqli_stmt_close($stmt);
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, 'sssii', $name, $email, $text, $status, $edit);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
 
         mysqli_close($link);
     }
